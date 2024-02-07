@@ -2,30 +2,26 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Repository\UserRepository;
+use App\service\ParserService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Serializer\SerializerInterface;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-#[Route('user')]
+#[Route('/user')]
 class UserController extends AbstractController
 {
     #[Route('/signup',methods:['POST'])]
-    public function signup(Request $request,SerializerInterface $serializer,ValidatorInterface $validator,EntityManagerInterface $entityManager): Response
+    public function signup(Request $request,ParserService $parser,EntityManagerInterface $entityManager,UserPasswordHasherInterface $hasher): Response
     {
-       $user = $serializer->deserialize($request->getContent(),User::class,'json');
-       $errors = $validator->validate($user);
-       if(count($errors) > 0){
-            $message = "";
-            foreach($errors as $error){
-                $message = $message." ".$error->getMessage();
-            }
-            return $this->json($message,400);
-       }
+        try {
+            $user = $parser->parse($request->getContent(),User::class);
+        } catch (\Throwable $th) {
+            return new Response($th->getMessage(),400,['content-type'=>'application/json; charset=utf-8']);
+        }
+       $user->setPassword($hasher->hashPassword($user, "password"));
        $entityManager->persist($user);
        $entityManager->flush();
        return $this->json('OK',201);
