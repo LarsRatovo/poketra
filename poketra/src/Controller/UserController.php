@@ -16,11 +16,7 @@ class UserController extends AbstractController
     #[Route('/signup',methods:['POST'])]
     public function signup(Request $request,ParserService $parser,EntityManagerInterface $entityManager,UserPasswordHasherInterface $hasher): Response
     {
-        try {
-            $user = $parser->parse($request->getContent(),User::class);
-        } catch (\Throwable $th) {
-            return new Response($th->getMessage(),400,['content-type'=>'application/json; charset=utf-8']);
-        }
+        $user = $parser->parse($request->getContent(),User::class);
        $user->setPassword($hasher->hashPassword($user, "password"));
        $entityManager->persist($user);
        $entityManager->flush();

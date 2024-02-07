@@ -25,11 +25,7 @@ class TransactionTypeController extends AbstractController
 
     #[Route('',methods:['POST'])]
     public function create(EntityManagerInterface $manager,Request $request,ParserService $parser){
-        try {
-            $type = $parser->parse($request->getContent(),TransactionType::class);
-        } catch (\Throwable $th) {
-            return new Response($th->getMessage(),400,['content-type'=>'application/json; charset=utf-8']);
-        }
+        $type = $parser->parse($request->getContent(),TransactionType::class);
         $manager->persist($type);
         $manager->flush();
         return $this->json('Ok',201);
@@ -37,11 +33,7 @@ class TransactionTypeController extends AbstractController
 
     #[Route('/{id}',methods:['PUT'])]
     public function update(EntityManagerInterface $manager,TransactionType $transactionType,Request $request,ParserService $parser){
-        try {
-            $updated = $parser->parse($request->getContent(),TransactionType::class,$transactionType);
-        } catch (\Throwable $th) {
-            return new Response($th->getMessage(),400,['content-type'=>'application/json; charser=utf-8;']);
-        }
+        $updated = $parser->parse($request->getContent(),TransactionType::class,$transactionType);
         $manager->persist($updated);
         $manager->flush();
         return $this->json('Ok',200);

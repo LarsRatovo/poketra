@@ -1,7 +1,7 @@
 <?php
 namespace App\service;
 
-use Exception;
+use App\util\NotSuitableException;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -23,7 +23,7 @@ class ParserService{
              foreach($errors as $error){
                  $message = $message." ".$error->getMessage();
              }
-             throw new Exception($message);
+             throw new NotSuitableException($message);
         }
         return $model;
     }

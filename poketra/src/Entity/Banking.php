@@ -15,11 +15,11 @@ class Banking
     private ?int $id = null;
 
     #[ORM\Column(length: 50)]
-    #[Assert\NotBlank('Le nom est obligatoire')]
+    #[Assert\NotBlank(message:'Le nom est obligatoire')]
     private ?string $name = null;
 
     #[ORM\Column]
-    #[Assert\NotNull('L\' utilisateur est obligatoire')]
+    #[Assert\NotBlank(message:'L\' utilisateur est obligatoire')]
     private ?int $user = null;
 
     public function getId(): ?int
