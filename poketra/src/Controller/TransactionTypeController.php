@@ -3,8 +3,7 @@ namespace App\Controller;
 
 use App\Entity\TransactionType;
 use App\Repository\TransactionTypeRepository;
-use App\service\ParserService;
-use Doctrine\ORM\EntityManagerInterface;
+use App\services\CrudService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,25 +23,20 @@ class TransactionTypeController extends AbstractController
     }
 
     #[Route('',methods:['POST'])]
-    public function create(EntityManagerInterface $manager,Request $request,ParserService $parser){
-        $type = $parser->parse($request->getContent(),TransactionType::class);
-        $manager->persist($type);
-        $manager->flush();
+    public function create(CrudService $service,Request $request){
+        $service->persist($request->getContent(),TransactionType::class);
         return $this->json('Ok',201);
     }
 
     #[Route('/{id}',methods:['PUT'])]
-    public function update(EntityManagerInterface $manager,TransactionType $transactionType,Request $request,ParserService $parser){
-        $updated = $parser->parse($request->getContent(),TransactionType::class,$transactionType);
-        $manager->persist($updated);
-        $manager->flush();
+    public function update(CrudService $service,TransactionType $transactionType,Request $request){
+        $service->update($transactionType,$request->getContent(),TransactionType::class);
         return $this->json('Ok',200);
     }
 
     #[Route('/{id}',methods:['DELETE'])]
-    public function delete(EntityManagerInterface $manager,TransactionType $transactionType){
-        $manager->remove($transactionType);
-        $manager->flush();
+    public function delete(CrudService $service,TransactionType $transactionType){
+        $service->remove($transactionType);
         return $this->json('Ok',200);
     }
 }

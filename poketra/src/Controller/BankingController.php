@@ -4,9 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Banking;
 use App\Repository\BankingRepository;
-use App\service\ParserService;
-use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\EntityManagerInterface;
+use App\services\CrudService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,25 +24,20 @@ class BankingController extends AbstractController
     }
 
     #[Route('',methods:['POST'])]
-    public function create(ParserService $parser,Request $request,EntityManagerInterface $manager){
-        $banking = $parser->parse($request->getContent(),Banking::class);
-        $manager->persist($banking);
-        $manager->flush();
+    public function create(CrudService $service,Request $request){
+        $service->persist($request->getContent(),Banking::class);
         return $this->json('Ok',201);
     }
     
     #[Route('/{id}',methods:['PUT'])]
-    public function update(ParserService $parser,Request $request,EntityManagerInterface $manager,Banking $banking){
-        $model = $parser->parse($request->getContent(),Banking::class,$banking);
-        $manager->persist($model);
-        $manager->flush();
+    public function update(Request $request,Banking $banking,CrudService $service){
+        $service->update($banking,$request->getContent(),Banking::class);
         return $this->json('Ok',200);
     }
 
     #[Route('/{id}',methods:['DELETE'])]
-    public function delete(Banking $banking,EntityManagerInterface $manager){
-        $manager->remove($banking);
-        $manager->flush();
+    public function delete(Banking $banking,CrudService $service){
+        $service->remove($banking);
         return $this->json('Ok',200);
     }
 }

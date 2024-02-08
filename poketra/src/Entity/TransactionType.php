@@ -22,6 +22,14 @@ class TransactionType
     #[Assert\NotBlank(message:'L\' utilisateur est obligatoire')]
     private ?int $user = null;
 
+    #[ORM\Column]
+    #[Assert\NotBlank(message:"Le type est obligatoire")]
+    #[Assert\AtLeastOneOf([new Assert\EqualTo(1),new Assert\EqualTo(-1)],message:"Le type doit être égal à 1 ou -1")]
+    private ?int $type = null;
+
+    #[ORM\Column]
+    private bool $daily = false;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -38,6 +46,15 @@ class TransactionType
 
         return $this;
     }
+    public function getDaily() : bool
+    {
+        return $this->daily;
+    }
+    public function setDaily(bool $daily) : static
+    {
+        $this->daily = $daily;
+        return $this;
+    }
 
     public function getUser(): ?int
     {
@@ -48,6 +65,15 @@ class TransactionType
     {
         $this->user = $user;
 
+        return $this;
+    }
+    public function getType(): ?int
+    {
+        return $this->type;
+    }
+    public function setType(int $type): static
+    {
+        $this->type = $type;
         return $this;
     }
 }
