@@ -42,8 +42,12 @@ CREATE TABLE planned_transaction
     id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
     type INTEGER NOT NULL REFERENCES transaction_type(id),
     banking INTEGER NOT NULL REFERENCES banking(id),
+    user INTEGER NOT NULL REFERENCES user(id),
     transaction_day INTEGER NOT NULL CHECK(transaction_day > 0 AND transaction_day < 32),
     transaction_month INTEGER NOT NULL CHECK(transaction_month > 0 AND transaction_month < 13),
     label VARCHAR(50),
     amount DECIMAL(13,2) NOT NULL CHECK (amount > 0)
 );
+
+CREATE OR REPLACE VIEW v_planned_transaction AS SELECT t.id,tp.name type_name,tp.id type_id,b.name banking_name,b.id banking_id,t.user,t.transaction_day,t.transaction_month,t.label,t.amount*tp.type amount FROM planned_transaction t JOIN transaction_type tp ON tp.id = t.type JOIN banking b ON b.id = t.banking;
+CREATE OR REPLACE VIEW balance AS SELECT b.*,s.amount FROM banking b LEFT JOIN (SELECT banking_id,SUM(amount) as amount FROM v_transaction GROUP BY banking_id) s ON b.id = s.banking_id;

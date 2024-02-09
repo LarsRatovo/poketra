@@ -63,11 +63,20 @@ class VTransactionRepository extends ServiceEntityRepository
                 $builder->andWhere($this->filter[$key])->setParameter($key,$filter[$key]);
             }
         }
-
         $builder->orderBy('t.transaction_date','DESC');
         $page = isset($filter['page']) ? $filter['page'] : 0;
-        $offset = isset($filter['offset']) ? $filter['offset'] : 10;
+        $offset = isset($filter['offset']) ? $filter['offset'] : 50;
         $builder->setFirstResult($offset*$page)->setMaxResults($offset);
         return $builder->getQuery()->getResult();
+    }
+    public function findByUserAndLimit(int $id,int $limit) : array
+    {
+        return $this->createQueryBuilder('t')
+                ->andWhere('t.user = :user')
+                ->setParameter('user',$id)
+                ->orderBy('t.transaction_date','DESC')
+                ->setMaxResults($limit)
+                ->getQuery()
+                ->getResult();
     }
 }
