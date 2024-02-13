@@ -69,13 +69,13 @@ class VTransactionRepository extends ServiceEntityRepository
         $builder->setFirstResult($offset*$page)->setMaxResults($offset);
         return $builder->getQuery()->getResult();
     }
-    public function findByUserAndLimit(int $id,int $limit) : array
+    public function findByUserAndLimit(int $id) : array
     {
         return $this->createQueryBuilder('t')
                 ->andWhere('t.user = :user')
                 ->setParameter('user',$id)
                 ->orderBy('t.transaction_date','DESC')
-                ->setMaxResults($limit)
+                ->setMaxResults(20)
                 ->getQuery()
                 ->getResult();
     }
