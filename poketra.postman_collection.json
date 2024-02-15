@@ -1,0 +1,489 @@
+{
+	"info": {
+		"_postman_id": "c31c63d4-ef6b-4383-bedb-fd35c6fc0863",
+		"name": "poketra",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24317900"
+	},
+	"item": [
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "signup",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"mail\":\"lars.ratovo@gmail.com\",\n    \"password\":\"admin134\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/user/signup",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"user",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\":\"user@bookapi.com\",\n    \"password\":\"password\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/login_check",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"login_check"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "transactionType",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"Dépense\",\n    \"user\":2,\n    \"type\":1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/transaction_type",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"transaction_type"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "    {\n        \"id\": 1,\n        \"name\": \"Dépense\",\n        \"daily\": true,\n        \"user\": 1,\n        \"type\": -1\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/transaction_type/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"transaction_type",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/transaction_type",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"transaction_type"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/transaction_type/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"transaction_type",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "banking",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"test\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/banking",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"banking"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/banking?user=1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"banking"
+							],
+							"query": [
+								{
+									"key": "user",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 1,\n    \"name\": \"teAst\",\n    \"user\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/banking/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"banking",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/banking/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"banking",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "transactions",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user\": 1,\n    \"banking\": 2,\n    \"type\":1,\n    \"transcationDate\": \"2020-09-02\",\n    \"amount\": \"10988\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/transaction",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"transaction"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"transcationDate\": \"2024-08-12\",\n    \"amount\": \"1609\",\n    \"label\":\"Test update\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/transaction/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"transaction",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get unique",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/transaction/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"transaction",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/transaction?user=1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"transaction"
+							],
+							"query": [
+								{
+									"key": "user",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "planedTranscation",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user\": 1,\n    \"banking\": 2,\n    \"type\":1,\n    \"transactionDay\": 90,\n    \"transactionMonth\":4,\n    \"amount\": \"10988\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/planned",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"planned"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"amount\": \"1609\",\n    \"label\":\"Test update\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/planned/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"planned",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get unique",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/planned/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"planned",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/planned?user=1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"planned"
+							],
+							"query": [
+								{
+									"key": "user",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3MDc1MDkyMTUsImV4cCI6MTcwNzUxMjgxNSwicm9sZXMiOltdLCJ1c2VybmFtZSI6InVzZXJAYm9va2FwaS5jb20ifQ.s1b3TMGMd5DS5EMC5bEy2ZuhVbkQDLomh1u-ixga0ju989dGQ0KTdaRjudJjHmiq3oIEidxv6_ClzWPtE5IBkGTrF0gKT3DK3iXYuaFvBn8peiSad514vEvdxB4PObgix3KLQGUAkzldiX2uCMsSlOtBOa93lcaHD6A_ZB23AV8Xj0ehbN12uXAxP64ewcnXEJx-oSMYRuIUNHd4zF8rGzdwTKjK37gztlfYj0eQy-seY-rzuNvtlyaYTrmb0KVE8Q67nn05wUq6_pgfyeIQr--XOF8DiOlF2yORGKGj_NGE68hOnXRvCRBd05QZ-z1sDbZbNTyy0KG8BrLd3ELL2DONXekBQT1t3h7MXx0tfUS6xEhlmxZNRjxgd0KPffJoAsgjwxnmUrZedef72fGqTsMzqfvJwKsue1oycIQkuGy3sDxgIgHmF6G1SBgw0dn1CNUBlbVYEA0KnhWEevQTbtndXUhtW7Sz4CRbJo-xXPqTnS9p0e5PaR5c9jNLib6y8xEfDbKTzNk6pntgC0bOwLDOz5G6ZkV7lhG4UJEymKVXbx8jQfNOeDp2f9dOg-Ypn0FlWSDQnagFHfY78SY96lPMxY7XqpEEottRfUzoxCdW82u6qaJ1FFFQYAQlVQrqDIyWhcjyvXcwSxpF2sFXbPMn1MlKSwTW5PAeDLMprtM",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
